@@ -577,9 +577,8 @@ textarea::-ms-input-placeholder
     overflow:hidden;
 }
 .navbar-default .collapse .login:hover a{       /*boton ingresar al activarse*/
-    background-color: rgba(0, 173, 62, 0.75);
-    color:#000000;
-    font-size: 22px;   
+    background-color: #86755b;
+    color:#fff;  
 }
 
 .navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:focus {  
