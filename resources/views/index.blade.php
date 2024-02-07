@@ -1,3 +1,4 @@
+
 <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
@@ -18,15 +19,17 @@
         <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Nanum+Myeongjo&display=swap" rel="stylesheet">
 
         <!--For Plugins external css-->
-        <link rel="stylesheet" href="assets/css/plugins.css" />
-        <link rel="stylesheet" href="assets/css/roboto-webfont.css" />
+        <link rel="stylesheet" href="{{ asset('assets/css/plugins.css') }}" />
+        <link rel="stylesheet" href="{{ asset('assets/css/roboto-webfont.css') }}" />
+        
+        
 
         <!--Theme custom css -->
-        <link rel="stylesheet" href="assets/css/style.css">
+        <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 
         <!--Theme Responsive css-->
-        <link rel="stylesheet" href="assets/css/responsive.css" />
-        <script src="assets/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script> 
+        <link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}" />
+        <script src="{{ asset('assets/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js') }}"></script> 
         <title>div color</title>  <!-- color del div de fondo naranja palido /-->
         <script src="https://kit.fontawesome.com/0152ecbb65.js" crossorigin="anonymous"></script>
         
@@ -74,7 +77,100 @@
                         <li><a href="#features">ENLAZADOS</a></li>
                         <li><a href="#service">SERVICIOS</a></li>
                         <li><a href="#contact">CONTACTENOS</a></li>
-                        <li class="login" class=""><a href="#">Ingresar</a></li>
+                        <li class="login" class="">
+                            @guest
+                                @if (Route::has('login'))
+                                    <li class="nav-item">
+                                        <!-- Button trigger modal -->
+                                        <a class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500" data-toggle="modal" data-target="#exampleModal" style="cursor: pointer">
+                                            ingresar
+                                        </a>
+                                    </li>
+                                @endif
+                            @else
+                                <li class="nav-item dropdown">
+                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre style="font-size: 16px">
+                                       Bienvenido {{ Auth::user()->name }} {{ Auth::user()->apellido }}
+                                    </a> 
+                                   <a class="dropdown-item" href="{{ route('logout') }}"
+                                           onclick="event.preventDefault();
+                                                         document.getElementById('logout-form').submit();">
+                                            {{ __('Logout') }}
+                                        </a>
+
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                            @csrf
+                                        </form>
+                                </li>
+                            @endguest
+                            
+                            <!-- Modal -->
+                            <div class="modal fade bd-example-modal-lg fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      {{-- <h5 class="modal-title" id="exampleModalLabel">Modal title</h5> --}}
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form method="POST" action="{{ route('login') }}">
+                                            @csrf
+                                            <div class="row mb-3" style="padding-bottom: 5px">
+                                                <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
+                    
+                                                <div class="col-md-6">
+                                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                    
+                                                    @error('email')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
+                    
+                                                <div class="col-md-6">
+                                                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                    
+                                                    @error('password')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-0">
+                                                <div class="col-md-8 offset-md-4">
+                                                    <ul>
+                                                        <li>
+                                                            @if (Route::has('password.request'))
+                                                                <a class="btn btn-secundary" href="{{ route('password.request') }}" style="width: auto">
+                                                                    {{ __('Forgot Your Password?') }}
+                                                                </a>
+                                                            @endif
+                                                        </li>
+                                                        <li>
+                                                            <button type="submit" class="btn btn-primary" style="cursor: pointer">
+                                                                {{ __('Sign in') }}
+                                                            </button>
+                                                        </li>
+                                                        <li>
+                                                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                  </div>
+                                </div>
+                            </div>
+                        </li>
                     </ul>
                 </div>
                 </div><!-- /.navbar-collapse -->
@@ -659,5 +755,8 @@
         <script src="assets/js/plugins.js"></script>
         <script src="assets/js/modernizr.js"></script>
         <script src="assets/js/main.js"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     </body>
 </html>

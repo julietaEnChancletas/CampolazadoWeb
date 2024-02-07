@@ -18,7 +18,6 @@ body {
     font-family: 'Indie Flower', cursive;
     font-family: 'Nanum Myeongjo', serif;
     font-weight: 300;
-    scroll-behavior: smooth;
 }
 
 img {
@@ -324,6 +323,8 @@ Button
 }
 .btn-primary:hover {                                    /*fondo de servicios*/
     background-color:#eeedb4;
+    border: 1px solid transparent;
+    color: #7e691b;
 }
 
 .btn {
@@ -345,10 +346,8 @@ Button
     user-select: none;
     background-image: none;
     border: 1px solid transparent;
-    border-radius: 3px;
-    width: 200px;
-    height: 50px;
-    padding: 1em;
+    border-radius: 50px;
+    width: 120px;  
 }
 
 .btn-default {
@@ -555,7 +554,7 @@ textarea::-ms-input-placeholder
 }
 .navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus {
     color: #e8aa50;
-    background-color:transparent;^        /*inicio en barra de menu*/
+    background-color:transparent;       /*inicio en barra de menu*/
 }
 .navbar-default .navbar-nav>li>a {
     color: #e8aa50;                       /*listado de barra de menu*/
@@ -566,7 +565,7 @@ textarea::-ms-input-placeholder
 .navbar-default .navbar-nav li a :hover{
     color: #7e691b;
 }
-.navbar-default .collapse .login a{
+.aHref{
     color: #7e691b;
     border: 1px solid #7e691b;
     border-radius: 20px;
@@ -652,8 +651,8 @@ textarea::-ms-input-placeholder
 }
 .form-control {
     border: 1px solid #DEDEDE;
-    height:45px;
-    border-radius: 0px;
+    height:30px;
+    border-radius: 18px;
     margin-right: -3px;
 }
 .head_title {
